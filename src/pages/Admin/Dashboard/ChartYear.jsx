@@ -3,7 +3,8 @@ import { Box } from '@mui/material';
 import { Chart as ChartJS, defaults } from 'chart.js/auto'
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2'
-import { getCustomerChartByYear, getOrderChartByYear } from '~/apis'
+import { getCustomerChartByYear } from '~/apis/customerApi'
+import { getOrderChartByYear } from '~/apis/orderApi'
 
 defaults.maintainAspectRatio = false
 defaults.responsive = true

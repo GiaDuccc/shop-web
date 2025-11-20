@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { changeRoleCustomerAPI, deleteCustomerAPI, fetchGetAllCustomerPageAPI } from '~/apis'
+import { changeRoleCustomerAPI, deleteCustomerAPI, fetchGetAllCustomerPageAPI } from '~/apis/customerApi'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
@@ -17,7 +17,7 @@ import trashIcon from '~/assets/trash.png'
 import leftIcon from '~/assets/left.png'
 import rightIcon from '~/assets/right.png'
 import CustomerDetail from './CustomerDetail/CustomerDetail'
-import '~/App.css'
+import '~/App.scss'
 
 function Customer({ userId, userRole }) {
 

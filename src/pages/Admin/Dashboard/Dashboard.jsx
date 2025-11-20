@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { getAllCustomerQuantityAPI, getAllProductQuantityAPI, getQuantityAndProfitAPI, getTopBestSeller } from '~/apis'
 import ChartYear from './ChartYear'
 import { useSearchParams } from 'react-router-dom'
-import '~/App.css'
+import '~/App.scss'
 
 const time = ['day', 'month', 'year']
 const fontSizeTitle = '24px'

@@ -1,0 +1,260 @@
+.container {
+  background-color: white;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: 20px auto;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.customerId {
+  color: rgba(0,0,0,.85);
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.buttonFeature {
+  display: flex;
+  gap: 32px;
+
+  p {
+    color: rgb(105, 105, 105);
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  div:hover {
+    color: rgb(105, 105, 105);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.buttonIcon {
+  width: 16px;
+  height: 16px; 
+  opacity: 0.6;
+}
+
+.userDetailEdit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 4px auto;
+}
+
+.userDetailWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  gap: 24px;
+  width: 100%;
+}
+
+.userDetailView {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.infoRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  .label {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .value {
+    font-size: 16px;
+  }
+}
+
+.activeIndicator {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgb(141, 141, 141);
+  border-radius: 16px;
+
+  &.active {
+    background-color: #3dff4c;
+  }
+
+  &.inactive {
+    background-color: #ff3232;
+  }
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loadingWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.ordersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.orderCard {
+  display: flex;
+  height: fit-content;
+  gap: 16px;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 3px 3px 15px #ddd;
+  }
+}
+
+.orderImages {
+  display: flex;
+  gap: 8px;
+  width: 110px;
+  height: 110px;
+  flex-wrap: wrap;
+
+  img {
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .singleImage {
+    width: 100%;
+    height: 100%;
+  }
+
+  .multipleImage {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.orderInfo {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .orderId {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .orderStatus {
+    font-size: 16px;
+    color: #696969;
+
+    .statusValue {
+      border-bottom: 1px solid black;
+      padding-bottom: 0.5px;
+    }
+  }
+
+  .orderAddress {
+    font-size: 16px;
+    color: #696969;
+
+    .addressValue {
+      border-bottom: 1px solid black;
+      padding-bottom: 0.5px;
+      color: black;
+    }
+  }
+}
+
+.orderPrice {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .totalPrice {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .orderDate {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+.submitButton {
+  width: 100%;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 12px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1);
+  cursor: pointer;
+
+  p {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    cursor: default;
+
+    &:hover {
+      transform: none;
+      opacity: 0.4;
+    }
+  }
+
+  &:not(.disabled):hover {
+    transform: scaleX(1.02);
+    opacity: 0.8;
+  }
+}
+

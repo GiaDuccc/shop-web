@@ -6,13 +6,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import closeIcon from '~/assets/x-white.png'
 import leftIcon from '~/assets/left.png'
 import rightIcon from '~/assets/right.png'
-import '~/App.css'
+import '~/App.scss'
 import checkIcon from '~/assets/check.png'
 import heartIcon from '~/assets/heart-outline.png'
 import heartColorIcon from '~/assets/heart-color.png'
 import dingSound from '~/assets/ding-sound.mp3'
 import tapSound from '~/assets/tap-sound.mp3'
-import { addOrderToCustomer, addProductToOrder, fetchCreateOrder, fetchCustomerDetailAPI } from '~/apis'
+import { addOrderToCustomer, fetchCustomerDetailAPI } from '~/apis/customerApi'
+import { addProductToOrder, fetchCreateOrder } from '~/apis/orderApi'
 import { jwtDecode } from 'jwt-decode'
 
 export default function ProductCardDetail({ product, open, onClose }) {
@@ -53,6 +54,7 @@ export default function ProductCardDetail({ product, open, onClose }) {
   const addFavouriteSound = new Audio(tapSound)
   const [addProductStatus, setAddProductStatus] = useState('idle')
   const [addFavouriteStatus, setAddFavouriteStatus] = useState(false)
+
 
   const handleClose = () => {
     const currentParams = Object.fromEntries(searchParams.entries())
@@ -173,366 +175,375 @@ export default function ProductCardDetail({ product, open, onClose }) {
             <img src={closeIcon} style={{ width: '22px', height: '22px' }} />
           </Box>
           {/* Content */}
-          <Box sx={{
+          <div style={{
             display: 'flex',
-            '& > div': { pt: '32px' }
+            flexDirection: 'column'
           }}>
-
-            {/* Left */}
             <Box sx={{
-              flex: 0.5,
               display: 'flex',
-              flexDirection: 'column',
-              height: 'fit-content',
-              position: 'sticky',
-              top: 0,
-              zIndex: 100
+              '& > div': { pt: '32px' }
             }}>
-              {activeProduct.imageDetail.map((image, index) => (
-                <Box
-                  onClick={() => setCurrentImage({ image: image, id: index })}
-                  key={index}
-                  sx={{
-                    height: '70px',
-                    width: '70px',
-                    mb: '12px',
-                    borderRadius: '6px',
-                    border: 'solid 0.5px rgba(255, 255, 255, 0)',
-                    transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)',
-                    '&:hover': {
-                      boxShadow: '1px 1px 10px rgb(201, 200, 200)',
-                      transform: 'scale(1.02)',
-                      transformOrigin: 'center',
-                      cursor: 'pointer',
-                      border: 'solid 1px #b6b6b6'
-                    }
-                  }}
-                >
-                  <img
-                    src={image}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: '6px',
-                      boxShadow: '0.2px 0.2px 10px rgb(220, 220, 220)',
-                      objectFit: 'cover'
 
-                    }}
-                  />
-                </Box>
-              ))}
-            </Box>
-
-            {/* Mid */}
-            <Box sx={{
-              flex: 5,
-              px: 3,
-              height: 'fit-content',
-              position: 'sticky',
-              top: 0,
-              zIndex: 100
-            }}>
-              <Box
-                sx={{
-                  width: '100%',
-                  position: 'relative'
-                }}
-              >
-                <img
-                  src={currentImage.image}
-                  style={{
-                    width: '100%',
-                    borderRadius: '12px',
-                    transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)'
-                  }}
-                />
-                {/* Button */}
-                <Box sx={{
-                  position: 'absolute',
-                  display: 'flex',
-                  gap: 2, p: '16px 32px',
-                  justifyContent: 'right',
-                  right: '-2%',
-                  bottom: '2%'
-                }}>
+              {/* Left */}
+              <Box sx={{
+                flex: 0.5,
+                display: 'flex',
+                flexDirection: 'column',
+                height: 'fit-content',
+                position: 'sticky',
+                top: 0,
+                zIndex: 100
+              }}>
+                {activeProduct.imageDetail.map((image, index) => (
                   <Box
-                    onClick={() => {
-                      const prevId = currentImage.id === 0
-                        ? activeProduct.imageDetail.length - 1
-                        : currentImage.id - 1;
-                      setCurrentImage({
-                        image: activeProduct.imageDetail[prevId],
-                        id: prevId
-                      })
-                    }}
+                    onClick={() => setCurrentImage({ image: image, id: index })}
+                    key={index}
                     sx={{
-                      bgcolor: '#f5f6fa',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '40px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      color: 'rgba(0,0,0,.85)',
-                      boxShadow: '0.5px 0.5px 10px rgb(189, 189, 189)',
-                      transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
-                      '&:hover': {
-                        bgcolor: 'rgb(228, 227, 227)'
-                        // transform: 'scale(1.03)',
-                      }
-                    }}
-                  >
-                    <img src={leftIcon} style={{ width: '20px', height: '20px', userSelect: 'none' }} />
-                  </Box>
-                  <Box
-                    onClick={() => {
-                      const nextId = currentImage.id === activeProduct.imageDetail.length - 1
-                        ? 0
-                        : currentImage.id + 1;
-                      setCurrentImage({
-                        image: activeProduct.imageDetail[nextId],
-                        id: nextId
-                      })
-                    }}
-                    sx={{
-                      bgcolor: '#f5f6fa',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '40px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      color: 'rgba(0,0,0,.85)',
-                      boxShadow: '0.5px 0.5px 10px rgb(189, 189, 189)',
-                      transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
-                      '&:hover': {
-                        bgcolor: 'rgb(228, 227, 227)'
-                      }
-                    }}
-                  >
-                    <img src={rightIcon} style={{ width: '20px', height: '20px', userSelect: 'none' }} />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-
-            {/* Right */}
-            <Box sx={{
-              flex: 4,
-              height: '100%'
-            }}>
-              {/* Title */}
-              <Box>
-                <Typography sx={{ color: '#d33918', fontSize: '18px', fontWeight: '600' }}>{activeProduct.stock > 0 ? 'Just in' : 'Sold out'}</Typography>
-                <Typography sx={{ fontWeight: '600', fontSize: '22px', pt: '4px' }} >{activeProduct.name}</Typography>
-                <Typography sx={{ fontSize: '16px', color: '#7e7e85', pb: '4px' }} >{activeProduct.type.slice(0, 1).toUpperCase() + product.type.slice(1)}</Typography>
-                <Typography sx={{ fontSize: '18px', fontWeight: '600', color: '#000000c2', pt: '8px' }}>{Number(activeProduct.price).toLocaleString('vi-VN')}đ</Typography>
-              </Box>
-              <Typography sx={{ fontSize: '16px', color: '#7e7e85', py: '8px' }} >{activeProduct.color.slice(0, 1).toUpperCase() + activeProduct.color.slice(1)}</Typography>
-              {/* Image List */}
-              <Box
-                sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}
-              >
-                {productList.map(product => (
-                  <Box
-                    onClick={() => {
-                      setActiveProduct(product)
-                      setCurrentImage({ image: product.imageDetail[0], id: 0 })
-                    }}
-                    key={product.id}
-                    sx={{
-                      position: 'relative',
-                      width: '70px',
                       height: '70px',
-                      borderRadius: '8px',
-                      transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
-                      opacity: product.stock > 0 ? '1' : '0.4',
-                      border: activeProduct.id === product.id ? 'solid 1px #000' : 'solid 1px rgba(255,255,255, 0)',
+                      width: '70px',
+                      mb: '12px',
+                      borderRadius: '6px',
+                      border: 'solid 0.5px rgba(255, 255, 255, 0)',
+                      transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)',
                       '&:hover': {
+                        boxShadow: '1px 1px 10px rgb(201, 200, 200)',
                         transform: 'scale(1.02)',
                         transformOrigin: 'center',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        border: 'solid 1px #b6b6b6'
                       }
                     }}
                   >
                     <img
-                      src={product.imageDetail[0]}
+                      src={image}
                       style={{
-                        objectFit: 'cover',
                         width: '100%',
                         height: '100%',
-                        borderRadius: '8px',
-                        boxShadow: '0.2px 0.2px 10px rgb(220, 220, 220)'
+                        borderRadius: '6px',
+                        boxShadow: '0.2px 0.2px 10px rgb(220, 220, 220)',
+                        objectFit: 'cover'
+
                       }}
                     />
-                    {product.stock === 0 && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: '5px',
-                          left: '5px',
-                          width: '83px',
-                          height: '1px',
-                          backgroundColor: 'red',
-                          transform: 'rotate(45deg)',
-                          transformOrigin: 'top left'
-                        }}
-                      />
-                    )}
                   </Box>
                 ))}
               </Box>
-              {/* Size */}
-              <Box sx={{ pt: '32px' }} >
-                <Typography sx={{ color: 'rgba(0,0,0, .85)', fontSize: '16px', fontWeight: '600', pb: 1 }}>Select Size</Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {activeProduct.size.map((size, idx) => (
-                    <Typography
-                      onClick={(e) => {
-                        if (size.split(':')[1] > 0) {
-                          setActiveSize(() => activeSize !== size ? size : null)
-                        }
-                        else { e.preventDefault() }
+
+              {/* Mid */}
+              <Box sx={{
+                flex: 5,
+                px: 3,
+                height: 'fit-content',
+                position: 'sticky',
+                top: 0,
+                zIndex: 100
+              }}>
+                <Box
+                  sx={{
+                    width: '100%',
+                    position: 'relative'
+                  }}
+                >
+                  <img
+                    src={currentImage.image}
+                    style={{
+                      width: '100%',
+                      borderRadius: '12px',
+                      transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)'
+                    }}
+                  />
+                  {/* Button */}
+                  <Box sx={{
+                    position: 'absolute',
+                    display: 'flex',
+                    gap: 2, p: '16px 32px',
+                    justifyContent: 'right',
+                    right: '-2%',
+                    bottom: '2%'
+                  }}>
+                    <Box
+                      onClick={() => {
+                        const prevId = currentImage.id === 0
+                          ? activeProduct.imageDetail.length - 1
+                          : currentImage.id - 1;
+                        setCurrentImage({
+                          image: activeProduct.imageDetail[prevId],
+                          id: prevId
+                        })
                       }}
-                      key={idx}
                       sx={{
-                        border: activeSize === size ? 'solid 0.5px rgb(0, 0, 0)' : 'solid 0.5px rgba(255, 255, 255, 0)',
-                        p: '8px 24px',
-                        fontSize: '16px',
-                        borderRadius: '8px',
-                        bgcolor: 'white',
-                        boxShadow: '0.5px 0.5px 10px rgb(220, 220, 220)',
+                        bgcolor: '#f5f6fa',
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '40px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        color: 'rgba(0,0,0,.85)',
+                        boxShadow: '0.5px 0.5px 10px rgb(189, 189, 189)',
                         transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
-                        color: 'rgba(0,0,0, .85)',
-                        opacity: size.split(':')[1] > 0 ? 'none' : '0.4',
                         '&:hover': {
-                          boxShadow: size.split(':')[1] > 0 ? '1px 1px 10px rgb(201, 200, 200)' : '0.5px 0.5px 10px rgb(220, 220, 220)',
-                          transform: 'scale(1.02)',
-                          transformOrigin: 'center',
-                          cursor: size.split(':')[1] > 0 ? 'pointer' : 'not-allowed'
-                          // border: size.split(':')[1] > 0 ? 'solid 0.5px #b6b6b6' : 'solid 0.5px rgba(255, 255, 255, 0)'
+                          bgcolor: 'rgb(228, 227, 227)'
+                          // transform: 'scale(1.03)',
                         }
                       }}
                     >
-                      {size.split(':')[0]}
-                    </Typography>
-                  ))}
+                      <img src={leftIcon} style={{ width: '20px', height: '20px', userSelect: 'none' }} />
+                    </Box>
+                    <Box
+                      onClick={() => {
+                        const nextId = currentImage.id === activeProduct.imageDetail.length - 1
+                          ? 0
+                          : currentImage.id + 1;
+                        setCurrentImage({
+                          image: activeProduct.imageDetail[nextId],
+                          id: nextId
+                        })
+                      }}
+                      sx={{
+                        bgcolor: '#f5f6fa',
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '40px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        color: 'rgba(0,0,0,.85)',
+                        boxShadow: '0.5px 0.5px 10px rgb(189, 189, 189)',
+                        transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
+                        '&:hover': {
+                          bgcolor: 'rgb(228, 227, 227)'
+                        }
+                      }}
+                    >
+                      <img src={rightIcon} style={{ width: '20px', height: '20px', userSelect: 'none' }} />
+                    </Box>
+                  </Box>
                 </Box>
               </Box>
-              {/* Add to Cart */}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                  mt: '32px',
-                  transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)',
-                  '& > div': {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    // p: '16px',
-                    height: '50px',
-                    transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)',
-                    borderRadius: '32px',
-                    boxShadow: '0.5px 0.5px 10px rgb(220, 220, 220)'
-                  },
-                  '& > div:hover': {
-                    cursor: 'pointer',
-                    boxShadow: '1px 1px 10px rgb(201, 200, 200)',
-                    transform: 'scale(1.02)',
-                    transformOrigin: 'center'
-                  },
-                  '& p': {
-                    fontSize: '16px',
-                    fontWeight: '600'
-                  }
-                }}
-              >
-                <Box
-                  onClick={() => (activeSize && addProductStatus !== 'loading' && addProductStatus !== 'success') && handleAddToCart()}
-                  sx={{
-                    bgcolor: 'black',
-                    color: 'white',
-                    opacity: activeSize ? 1 : 0.5
-                  }}>
-                  {addProductStatus === 'idle' && (
-                    <Typography className='fade-in'>{user ? 'Add to Cart' : 'Sign in to shopping'}</Typography>
-                  )}
-                  {addProductStatus === 'loading' && (
-                    <span className='spinner-white' style={{ width: '28px', height: '28px' }}></span>
-                  )}
-                  {addProductStatus === 'success' && (
-                    <span className='boom' style={{ display: 'flex', alignItems: 'center' }} >
-                      <img src={checkIcon} style={{ width: '32px', height: '32px' }} />
-                    </span>
-                  )}
+
+              {/* Right */}
+              <Box sx={{
+                flex: 4,
+                height: '100%'
+              }}>
+                {/* Title */}
+                <Box>
+                  <Typography sx={{ color: '#d33918', fontSize: '18px', fontWeight: '600' }}>{activeProduct.stock > 0 ? 'Just in' : 'Sold out'}</Typography>
+                  <Typography sx={{ fontWeight: '600', fontSize: '22px', pt: '4px' }} >{activeProduct.name}</Typography>
+                  <Typography sx={{ fontSize: '16px', color: '#7e7e85', pb: '4px' }} >{activeProduct.type.slice(0, 1).toUpperCase() + product.type.slice(1)}</Typography>
+                  <Typography sx={{ fontSize: '18px', fontWeight: '600', color: '#000000c2', pt: '8px' }}>{Number(activeProduct.price).toLocaleString('vi-VN')}đ</Typography>
                 </Box>
+                <Typography sx={{ fontSize: '16px', color: '#7e7e85', py: '8px' }} >{activeProduct.color.slice(0, 1).toUpperCase() + activeProduct.color.slice(1)}</Typography>
+                {/* Image List */}
                 <Box
-                  onClick={() => {
-                    setAddFavouriteStatus(!addFavouriteStatus)
-                    if (!addFavouriteStatus) {
-                      addFavouriteSound.volume = 0.4
-                      addFavouriteSound.play()
+                  sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}
+                >
+                  {productList.map(product => (
+                    <Box
+                      onClick={() => {
+                        setActiveProduct(product)
+                        setCurrentImage({ image: product.imageDetail[0], id: 0 })
+                      }}
+                      key={product.id}
+                      sx={{
+                        position: 'relative',
+                        width: '70px',
+                        height: '70px',
+                        borderRadius: '8px',
+                        transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
+                        opacity: product.stock > 0 ? '1' : '0.4',
+                        border: activeProduct.id === product.id ? 'solid 1px #000' : 'solid 1px rgba(255,255,255, 0)',
+                        '&:hover': {
+                          transform: 'scale(1.02)',
+                          transformOrigin: 'center',
+                          cursor: 'pointer'
+                        }
+                      }}
+                    >
+                      <img
+                        src={product.imageDetail[0]}
+                        style={{
+                          objectFit: 'cover',
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: '8px',
+                          boxShadow: '0.2px 0.2px 10px rgb(220, 220, 220)'
+                        }}
+                      />
+                      {product.stock === 0 && (
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: '5px',
+                            left: '5px',
+                            width: '83px',
+                            height: '1px',
+                            backgroundColor: 'red',
+                            transform: 'rotate(45deg)',
+                            transformOrigin: 'top left'
+                          }}
+                        />
+                      )}
+                    </Box>
+                  ))}
+                </Box>
+                {/* Size */}
+                <Box sx={{ pt: '32px' }} >
+                  <Typography sx={{ color: 'rgba(0,0,0, .85)', fontSize: '16px', fontWeight: '600', pb: 1 }}>Select Size</Typography>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    {activeProduct.size.map((size, idx) => (
+                      <Typography
+                        onClick={(e) => {
+                          if (size.split(':')[1] > 0) {
+                            setActiveSize(() => activeSize !== size ? size : null)
+                          }
+                          else { e.preventDefault() }
+                        }}
+                        key={idx}
+                        sx={{
+                          border: activeSize === size ? 'solid 0.5px rgb(0, 0, 0)' : 'solid 0.5px rgba(255, 255, 255, 0)',
+                          p: '8px 24px',
+                          fontSize: '16px',
+                          borderRadius: '8px',
+                          bgcolor: 'white',
+                          boxShadow: '0.5px 0.5px 10px rgb(220, 220, 220)',
+                          transition: 'all 0.2s cubic-bezier(0.42, 0, 0.58, 1)',
+                          color: 'rgba(0,0,0, .85)',
+                          opacity: size.split(':')[1] > 0 ? 'none' : '0.4',
+                          '&:hover': {
+                            boxShadow: size.split(':')[1] > 0 ? '1px 1px 10px rgb(201, 200, 200)' : '0.5px 0.5px 10px rgb(220, 220, 220)',
+                            transform: 'scale(1.02)',
+                            transformOrigin: 'center',
+                            cursor: size.split(':')[1] > 0 ? 'pointer' : 'not-allowed'
+                            // border: size.split(':')[1] > 0 ? 'solid 0.5px #b6b6b6' : 'solid 0.5px rgba(255, 255, 255, 0)'
+                          }
+                        }}
+                      >
+                        {size.split(':')[0]}
+                      </Typography>
+                    ))}
+                  </Box>
+                </Box>
+                {/* Add to Cart */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    mt: '32px',
+                    transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)',
+                    '& > div': {
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      // p: '16px',
+                      height: '50px',
+                      transition: 'all 0.3s cubic-bezier(0.42, 0, 0.58, 1)',
+                      borderRadius: '32px',
+                      boxShadow: '0.5px 0.5px 10px rgb(220, 220, 220)'
+                    },
+                    '& > div:hover': {
+                      cursor: 'pointer',
+                      boxShadow: '1px 1px 10px rgb(201, 200, 200)',
+                      transform: 'scale(1.02)',
+                      transformOrigin: 'center'
+                    },
+                    '& p': {
+                      fontSize: '16px',
+                      fontWeight: '600'
                     }
                   }}
-                  sx={{ color: 'rgba(0,0,0,.85)', display: 'flex', gap: 1 }}
                 >
-                  <Typography>Add Favourite</Typography>
-                  {addFavouriteStatus ? (
-                    <img className='boom' src={heartColorIcon} style={{ width: '28px', height: '28px', userSelect: 'none' }} />
-                  ) : (
-                    <Box sx={{
-                      mx: '4px', display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center'
+                  <Box
+                    onClick={() => (activeSize && addProductStatus !== 'loading' && addProductStatus !== 'success') && handleAddToCart()}
+                    sx={{
+                      bgcolor: 'black',
+                      color: 'white',
+                      opacity: activeSize ? 1 : 0.5
                     }}>
-                      <img className='fade-in' style={{ width: '20px', height: '20px', userSelect: 'none' }} src={heartIcon} />
+                    {addProductStatus === 'idle' && (
+                      <Typography className='fade-in'>{user ? 'Add to Cart' : 'Sign in to shopping'}</Typography>
+                    )}
+                    {addProductStatus === 'loading' && (
+                      <span className='spinner-white' style={{ width: '28px', height: '28px' }}></span>
+                    )}
+                    {addProductStatus === 'success' && (
+                      <span className='boom' style={{ display: 'flex', alignItems: 'center' }} >
+                        <img src={checkIcon} style={{ width: '32px', height: '32px' }} />
+                      </span>
+                    )}
+                  </Box>
+                  <Box
+                    onClick={() => {
+                      setAddFavouriteStatus(!addFavouriteStatus)
+                      if (!addFavouriteStatus) {
+                        addFavouriteSound.volume = 0.4
+                        addFavouriteSound.play()
+                      }
+                    }}
+                    sx={{ color: 'rgba(0,0,0,.85)', display: 'flex', gap: 1 }}
+                  >
+                    <Typography>Add Favourite</Typography>
+                    {addFavouriteStatus ? (
+                      <img className='boom' src={heartColorIcon} style={{ width: '28px', height: '28px', userSelect: 'none' }} />
+                    ) : (
+                      <Box sx={{
+                        mx: '4px', display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}>
+                        <img className='fade-in' style={{ width: '20px', height: '20px', userSelect: 'none' }} src={heartIcon} />
+                      </Box>
+                    )}
+                  </Box>
+                </Box>
+                {/* HighLight and Desc */}
+                <Box>
+                  {/* HighLight */}
+                  {activeProduct.highLight && (
+                    <Box sx={{
+                      display: 'flex',
+                      bgcolor: '#f5f5f5',
+                      alignItems: 'center', justifyContent: 'center',
+                      mt: '48px'
+                    }}>
+                      <Typography sx={{
+                        py: '24px',
+                        px: '32px',
+                        fontSize: '16px'
+                      }}>
+                        {activeProduct.highLight}
+                      </Typography>
+                    </Box>
+                  )}
+                  {/* Desc */}
+                  {activeProduct.desc && (
+                    <Box sx={{ mt: '48px' }}>
+                      <Typography sx={{
+                        fontWeight: '600',
+                        fontSize: '20px',
+                        mb: '4px'
+                      }}>
+                        Description:
+                      </Typography>
+                      <Typography
+                        sx={{ fontSize: '16px' }}
+                      >
+                        {activeProduct.desc}
+                      </Typography>
                     </Box>
                   )}
                 </Box>
               </Box>
-              {/* HighLight and Desc */}
-              <Box>
-                {/* HighLight */}
-                {activeProduct.highLight && (
-                  <Box sx={{
-                    display: 'flex',
-                    bgcolor: '#f5f5f5',
-                    alignItems: 'center', justifyContent: 'center',
-                    mt: '48px'
-                  }}>
-                    <Typography sx={{
-                      py: '24px',
-                      px: '32px',
-                      fontSize: '16px'
-                    }}>
-                      {activeProduct.highLight}
-                    </Typography>
-                  </Box>
-                )}
-                {/* Desc */}
-                {activeProduct.desc && (
-                  <Box sx={{ mt: '48px' }}>
-                    <Typography sx={{
-                      fontWeight: '600',
-                      fontSize: '20px',
-                      mb: '4px'
-                    }}>
-                      Description:
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: '16px' }}
-                    >
-                      {activeProduct.desc}
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
+
             </Box>
-          </Box>
+            {/* <div style={{ padding: '16px 0', display:'flex', flexDirection: 'column' }}>
+              <p style={{ fontWeight: '600', fontSize: '28px', pt: '4px' }} >Related Products</p>
+            </div> */}
+          </div>
         </Box>
       </Box>
     </Modal>

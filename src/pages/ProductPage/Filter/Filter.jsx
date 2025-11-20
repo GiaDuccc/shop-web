@@ -3,8 +3,8 @@ import Box from '@mui/material/Box'
 import FilterOptions from './FilterOptions/FilterOptions'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { fetchAllProductAPI, fetchAllProductPageAPI } from '~/apis'
-import '~/App.css'
+import { fetchAllProductAPI, fetchAllProductPageAPI } from '~/apis/productApi'
+import '~/App.scss'
 
 function Filter({ currentPage }) {
 

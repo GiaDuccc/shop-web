@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { deleteOrderAPI, fetchGetAllOrderPageAPI, updatedOrderStatusAPI } from '~/apis'
+import { deleteOrderAPI, fetchGetAllOrderPageAPI, updatedOrderStatusAPI } from '~/apis/orderApi'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { useEffect, useState } from 'react'
@@ -17,7 +17,7 @@ import trashIcon from '~/assets/trash.png'
 import OrderDetail from '~/components/OrderDetail/OrderDetail'
 import leftIcon from '~/assets/left.png'
 import rightIcon from '~/assets/right.png'
-import '~/App.css'
+import '~/App.scss'
 
 function Order({ userId, userRole }) {
 

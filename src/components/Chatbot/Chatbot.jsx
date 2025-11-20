@@ -5,7 +5,7 @@ import closeIcon from '~/assets/x-white.png'
 import logoIcon from '~/assets/logo-white2.png'
 import sendIcon from '~/assets/send.png'
 import sendFillIcon from '~/assets/send-fill.png'
-import '~/App.css'
+import '~/App.scss'
 import { chatbot } from '~/apis'
 
 function Chatbot() {

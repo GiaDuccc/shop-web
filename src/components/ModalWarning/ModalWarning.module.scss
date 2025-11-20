@@ -1,0 +1,39 @@
+.modal {
+  overflow: hidden;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.modal_backdrop {
+  height: 100%;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal_content {
+  width: 30%;
+  height: 22vh;
+  background-color: white;
+  outline: none;
+  border-radius: 28px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  box-shadow: 4px 4px 15px rgb(138, 138, 138);
+  justify-content: space-between;
+}
+
+.modal_title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.modal_actions {
+  display: flex;
+  gap: 16px;
+  justify-content: end;
+}

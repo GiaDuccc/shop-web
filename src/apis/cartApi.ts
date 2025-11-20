@@ -1,0 +1,16 @@
+import axios from 'axios'
+import { API_ROOT } from '~/utils/constants'
+
+export const findCartByCustomerId = async (customerId: string) => {
+  try {
+    const response = await axios.get(`${API_ROOT}/v1/carts/findCartByCustomerId/${customerId}`)
+    return response.data
+  } catch (error: any) {
+    throw error.response.data.errors
+  }
+}
+
+export const updateCartAPI = async (cartId: string, updateData: any) => {
+  const response = await axios.put(`${API_ROOT}/v1/carts/updateCart/${cartId}`, updateData)
+  return response.data
+}

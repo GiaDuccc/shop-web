@@ -3,7 +3,7 @@ import ProductCard from './ProductCard/ProductCard'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import ProductCardDetail from './ProductCardDetail/ProductCardDetail'
-import '~/App.css'
+import '~/App.scss'
 
 function ProductList({ products }) {
   const [selectedProduct, setSelectedProduct] = useState(null)

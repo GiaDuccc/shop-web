@@ -3,8 +3,9 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { useEffect, useState } from 'react'
 import OrderDetail from '~/components/OrderDetail/OrderDetail'
-import '~/App.css'
-import { fetchCustomerDetailAPI, fetchGetOrder } from '~/apis'
+import '~/App.scss'
+import { fetchCustomerDetailAPI } from '~/apis/customerApi'
+import { fetchGetOrder } from '~/apis/orderApi'
 import closeIcon from '~/assets/x-white.png'
 
 

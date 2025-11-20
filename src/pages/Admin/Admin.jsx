@@ -12,7 +12,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import four from '~/assets/four.png'
 import zero from '~/assets/zero.png'
 import three from '~/assets/three.png'
-import { fetchLogoutAPI } from '~/apis'
+import { fetchLogoutAPI } from '~/apis/authApi'
 import { jwtDecode } from 'jwt-decode'
 
 function Admin() {

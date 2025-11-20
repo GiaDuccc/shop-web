@@ -1,0 +1,30 @@
+.sloganWrapper {
+  width: 100%;
+  padding: 16px 0;
+  transition: background-color 1.8s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.sloganInner {
+  display: flex;
+  justify-content: center;
+}
+
+.sloganText {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  font-size: 14px;
+  transition: color 1.8s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.sloganLink {
+  color: inherit;
+  display: inline-flex;
+  text-decoration: none;
+  align-items: center;
+  transition: color 1.8s cubic-bezier(0.42, 0, 0.58, 1);
+  font-size: 14px;
+}
+
+.sloganLink:hover {
+  text-decoration: underline;
+} 

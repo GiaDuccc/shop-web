@@ -1,0 +1,168 @@
+.header {
+  width: 100%;
+  height: var(--header-height);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+}
+
+.nonDisplay {
+  display: none !important;
+}
+
+.logoLink {
+  height: var(--header-height);
+  /* padding: 0 16px; */
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 44px;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: var(--header-height);
+}
+
+.nav.display {
+  display: flex;
+  transition: all 0.5s ease;
+}
+
+.isMobileAndTabletNav {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  color: rgba(0,0,0,0.85);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: var(--header-height);
+  padding: 0 1.5vw;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  cursor: pointer;
+  transition: all 0.5s ease
+}
+
+
+
+.actionLink {
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+}
+
+.textFieldRoot {
+}
+
+.textFieldInput {
+  color: black !important;
+  width: 120px !important;
+  font-size: 13px !important;
+  padding-right: 4px !important;
+}
+
+.textFieldOutlinedRoot fieldset {
+  border: none;
+}
+
+.textFieldOutlinedRoot:hover fieldset {
+  border: none;
+}
+
+.textFieldOutlinedRoot.Mui-focused fieldset {
+  border: none;
+}
+
+.textFieldInputProps {
+  height: 32px !important;
+  background-color: rgba(242, 242, 242, 0.9) !important;
+  border-radius: 32px !important;
+  padding: 0 !important;
+  transition: background-color 0.2s !important;
+}
+
+.textFieldInputProps:hover {
+  background-color: rgb(228, 228, 228) !important;
+}
+
+.textFieldEndAdornment {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(242, 242, 242, 0.9);
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.textFieldEndAdornment:hover {
+  cursor: pointer;
+  background-color: rgb(202, 202, 202);
+}
+
+.cartIconBox {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 20px;
+}
+
+.cartIcon {
+  height: 17px;
+}
+
+.signInLink {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+.signInIcon {
+  height: 17px;
+} 
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+
+}
+
+@media (min-width: 1px) and (max-width: 1024px) {
+  .header {
+    width: 800px;
+    margin: auto;
+    /* justify-content: space-between; */
+  }
+  .nav {
+    display: none;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .textFieldInput {
+    /* min-width: 150px !important; */
+  }
+}
+
+/* Desktop Responsive */
+@media (min-width: 1025px) {
+  .isMobileAndTabletNav {
+    display: none;
+  }
+  .navLink:hover {
+    opacity: 0.7;
+  }
+}

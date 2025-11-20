@@ -1,24 +1,19 @@
-import Container from '@mui/material/Container'
 import Header from '~/components/Header/Header'
 import Slogan from '~/components/Slogan/Slogan'
 import HeroSection from '~/components/HeroSection/HeroSection'
 import video1 from '~/assets/videoHeroSection/home.mp4'
 import Footer from '~/components/Footer/Footer'
-import Slider from '~/components/Slider/Slider_v2'
+import Slider from '~/components/Slider/Slider'
 import FadeInSection from '~/components/FadeInSection/FadeInSection60'
 import SlideDownSection from '~/components/SlideDownSection/SlideDownSection'
+import styles from './HomePage.module.scss'
 
 const brand = ['nike', 'adidas', 'puma', 'new balance', 'vans', 'balenciaga']
 
 function HomePage() {
 
   return (
-    <Container disableGutters maxWidth={false} sx={{
-      bgcolor: 'white',
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <div className={styles.container}>
       <Header />
       <SlideDownSection>
         <Slogan />
@@ -32,7 +27,7 @@ function HomePage() {
         </FadeInSection>
       ))}
       <Footer />
-    </Container>
+    </div>
   )
 }
 
