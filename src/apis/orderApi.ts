@@ -31,33 +31,13 @@ export const deleteOrderAPI = async (id: string) => {
   return response.data
 }
 
-export const fetchCreateOrder = async () => {
-  const response = await apiClient.post('/v1/orders/')
+export const getCustomerOrdersAPI = async (customerId: string) => {
+  const response = await apiClient.get(`/v1/orders/getCustomerOrders/${customerId}`)
   return response.data
 }
 
-export const addProductToOrder = async (orderId: string, data: any) => {
-  const response = await apiClient.put(`/v1/orders/${orderId}/add-product`, data)
-  return response.data
-}
-
-export const removeProductFromOrderAPI = async (orderId: string, data: any) => {
-  const response = await apiClient.put(`/v1/orders/${orderId}/remove-product`, data)
-  return response.data
-}
-
-export const increaseQuantityAPI = async (orderId: string, product: any) => {
-  const response = await apiClient.put(`/v1/orders/${orderId}/increase-quantity`, product)
-  return response.data
-}
-
-export const decreaseQuantityAPI = async (orderId: string, product: any) => {
-  const response = await apiClient.put(`/v1/orders/${orderId}/decrease-quantity`, product)
-  return response.data
-}
-
-export const addInformationToOrderAPI = async (orderId: string, data: any) => {
-  const response = await apiClient.put(`/v1/orders/${orderId}/add-information`, data)
+export const fetchCreateOrder = async (data: any) => {
+  const response = await apiClient.post('/v1/orders/', data)
   return response.data
 }
 

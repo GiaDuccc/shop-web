@@ -9,27 +9,15 @@ import ProductCardDetail from '~/pages/ProductPage/ProductList/ProductCardDetail
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import '~/App.scss'
 import styles from './Search.module.scss'
-
-interface Product {
-  _id: string
-  name: string
-  colors: Array<{
-    color: string
-    imageDetail: string[]
-  }>
-  stock: number
-  type: string
-  price: number
-  [key: string]: any
-}
+import { Product } from '~/interface/product.interface'
+import { searchProducts } from '~/apis/productApi'
 
 interface SearchProps {
   open: boolean
   toggleDrawer: () => void
-  productList: Product[]
 }
 
-function Search({ open, toggleDrawer, productList }: SearchProps) {
+function Search({ open, toggleDrawer }: SearchProps) {
 
   const [searchValue, setSearchValue] = useState<string>('')
   const [searchProduct, setSearchProduct] = useState<Product[]>([])
@@ -38,6 +26,23 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
   const [, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const location = useLocation()
+
+  useEffect(() => {
+    setSearchValue('')
+  }, [open])
+
+  useEffect(() => {
+    const fetchSearchProducts = async () => {
+      if (searchValue.length < 2) {
+        setSearchProduct([])
+        return
+      }
+      const results = await searchProducts(searchValue)
+      setSearchProduct(results)
+    }
+    fetchSearchProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue])
 
   const handleClick = (product: Product) => {
     let updatedRecent = [...searchRecent]
@@ -66,7 +71,7 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
     }
     setSelectedProduct(selectedProduct)
     toggleDrawer()
-    navigate(`/NiceStore/product-list/${product._id}/${product.colors[0].color}`, { state: { product: selectedProduct } })
+    // navigate(`/product/${product._id}/${product.colors[0].color}`, { state: { product: selectedProduct } })
   }
 
   const handleEnter = (data: string) => {
@@ -90,21 +95,8 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
       setSearchParams(newParams, { replace: false })
       return
     }
-    navigate(`/NiceStore/product-list?search=${encodeURIComponent(data)}`)
+    navigate(`/product?search=${encodeURIComponent(data)}`)
   }
-
-  useEffect(() => {
-    setSearchValue('')
-  }, [open])
-
-  useEffect(() => {
-    const searchProduct = productList.filter(product => {
-      if (searchValue.length < 2) return false
-      return product.name.toLowerCase().includes(searchValue.toLowerCase())
-    })
-    setSearchProduct(searchProduct.slice(0, 5))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue])
 
   return (
     <>
@@ -126,7 +118,8 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
             width: '100vw',
             bgcolor: 'white',
             overflow: 'hidden',
-            height: '60%',
+            height: 'fit-content',
+            minHeight: '400px',
             boxShadow: '4px 4px 15px rgb(80, 80, 80)'
           }
         }}
@@ -251,6 +244,7 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
                         toggleDrawer()
                       }}
                       key={idx}
+                      style={{ marginRight: idx === searchProduct.length - 1 ? '72px' : '0' }}
                     >
                       {/* img */}
                       <div className={styles.productImageContainer}>
@@ -318,7 +312,7 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
                   )
                 }
               </div>
-              <div className={`${styles.rightSpacer} ${searchValue.length >= 2 ? 'hidden' : ''}`}></div>
+              <div className={`${styles.rightSpacer} ${searchValue.length >= 2 ? styles.hidden : ''}`}></div>
             </div>
           </div>
         </div>
@@ -330,6 +324,7 @@ function Search({ open, toggleDrawer, productList }: SearchProps) {
           onClose={() => {
             setSelectedProduct(null)
           }}
+          onGoToCart={() => { }}
         />
       )}
     </>

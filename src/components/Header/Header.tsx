@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import logoIcon from '~/assets/logo2.png'
 import shoppingBagIcon from '~/assets/cart.png'
 import signInIcon from '~/assets/login.png'
@@ -6,11 +6,9 @@ import searchIcon from '~/assets/search.png'
 import TextField from '@mui/material/TextField'
 import Cart from '../Cart/Cart'
 import Search from '../Search/Search'
-import { fetchAllProductAPI } from '~/apis/productApi'
 import { jwtDecode } from 'jwt-decode'
 import styles from './Header.module.scss'
 import RightIcon from '~/assets/right-icon.svg?react'
-import { updateCartAPI } from '~/apis/cartApi'
 
 // const headerHeight = (theme) => theme.shop.headerHeight // fallback, dùng biến css nếu có'
 const headerHeight = '46px'
@@ -21,27 +19,7 @@ function Header() {
   const token = accessToken ? jwtDecode(accessToken) : null
   const [openCart, setOpenCart] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
-  const [productList, setProductList] = useState([])
   const [isOpenMobileAndTabletNav, setIsOpenMobileAndTabletNav] = useState(false)
-
-  useEffect(() => {
-    (async () => {
-      const data = await fetchAllProductAPI()
-      setProductList(data)
-    })()
-  }, [])
-
-  useEffect(() => {
-    const updateCart = async () => {
-      const cartData = JSON.parse(sessionStorage.getItem('cart') || 'null')
-      if (cartData && !openCart) {
-        await updateCartAPI(cartData._id, {
-          items: cartData.items
-        })
-      }
-    }
-    updateCart()
-  }, [openCart])
 
   return (
     <div className={styles.header} style={{ '--header-height': headerHeight } as React.CSSProperties}>
@@ -94,7 +72,7 @@ function Header() {
           readOnly: true
         }}
       />
-      <Search open={openSearch} toggleDrawer={() => setOpenSearch(!openSearch)} productList={productList} />
+      <Search open={openSearch} toggleDrawer={() => setOpenSearch(!openSearch)} />
       <div className={`${isOpenMobileAndTabletNav ? styles.nonDisplay : styles.cartIconBox}`} onClick={() => setOpenCart(!openCart)}>
         <img src={shoppingBagIcon} alt="cart" className={styles.cartIcon} />
       </div>

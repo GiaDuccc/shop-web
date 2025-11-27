@@ -1,0 +1,425 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading_container {
+  @include flex-center;
+  height: 100vh;
+}
+
+.checkout_container {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 200px;
+}
+
+.content_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order_title {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 4px auto;
+}
+
+.items_container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  max-height: 488px;
+  height: fit-content;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.product_item {
+  display: flex;
+  height: fit-content;
+  gap: 16px;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.product_image_wrapper {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: fit-content;
+}
+
+.product_image {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product_details {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8px;
+}
+
+.product_name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.product_info {
+  font-size: 16px;
+  color: #696969;
+}
+
+.info_highlight {
+  border-bottom: 1px solid black;
+  padding-bottom: 0.5px;
+  color: black;
+}
+
+.product_price_wrapper {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.product_price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.subtotal_row {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  margin: 0 20px;
+
+  p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.delivery_row {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  margin: 12px 20px;
+
+  p {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.customer_info_header {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section_title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.edit_icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.customer_info_content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+
+.info_row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.info_label {
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 70px;
+}
+
+.info_value {
+  font-size: 16px;
+}
+
+.error_message {
+  color: red;
+  font-size: 16px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.text_field_wrapper {
+  flex: 1;
+}
+
+.text_field {
+  flex: 1;
+  background-color: white;
+  width: 100%;
+
+  :global(.MuiFilledInput-root) {
+    background-color: white;
+    border-radius: 16px;
+    color: rgba(0, 0, 0, 0.85);
+    border: 2px solid rgb(170, 170, 170);
+    padding: 0;
+
+    &:global(.Mui-focused) {
+      border: 2px solid rgba(0, 0, 0, 0.65);
+      border-radius: 16px;
+      background-color: white;
+    }
+
+    :global(input:-webkit-autofill) {
+      border-radius: 16px;
+    }
+  }
+
+  :global(.MuiFilledInput-input) {
+    padding: 8px 16px;
+  }
+
+  :global(.MuiInputLabel-root) {
+    color: #666;
+
+    &:global(.Mui-focused) {
+      color: rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  :global(input::-webkit-outer-spin-button),
+  :global(input::-webkit-inner-spin-button) {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  :global(input[type='number']) {
+    -moz-appearance: textfield;
+  }
+}
+
+.action_buttons {
+  display: flex;
+  justify-content: end;
+  gap: 16px;
+}
+
+.cancel_button,
+.update_button {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 6px 24px;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.42, 0, 0.58, 1);
+
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+  }
+}
+
+.cancel_button {
+  background-color: #e1e1e1;
+  color: #000000;
+}
+
+.update_button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.payment_method_content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.payment_option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 8px;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.42, 0, 0.58, 1);
+
+  p {
+    font-size: 16px;
+  }
+
+  &:hover {
+    background-color: #efefef;
+    cursor: pointer;
+  }
+}
+
+.wallet_logos {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  margin-left: 16px;
+}
+
+.wallet_logo {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card_logo {
+  height: 28px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card_logo_visa {
+  width: 36px;
+}
+
+.card_logo_other {
+  width: 34px;
+}
+
+.tick_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.unchecked_circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  border: 1px solid #999999;
+}
+
+.qr_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  height: fit-content;
+  transition: all 2s cubic-bezier(0.42, 0, 0.58, 1);
+  overflow: hidden;
+}
+
+.qr_image {
+  width: 120px;
+  height: 120px;
+}
+
+.fixed_footer {
+  position: fixed;
+  bottom: 0;
+  width: 50%;
+  z-index: 999;
+  background-color: #fff;
+  padding-top: 16px;
+}
+
+.total_row {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    font-size: 30px;
+    font-weight: 600;
+  }
+}
+
+.footer_buttons {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+
+  div {
+    flex: 1;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.42, 0, 0.58, 1);
+    height: 48px;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.02);
+    }
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.installment_button {
+  background-color: #e1e1e1;
+}
+
+.checkout_button {
+  background-color: #000;
+}
+
+.checkout_text {
+  color: #fff;
+}
+
+.spinner_wrapper {
+  display: flex;
+  align-items: center;
+}

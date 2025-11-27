@@ -1,7 +1,7 @@
 .container {
   background-color: white;
   width: 100%;
-  height: fit-content;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -11,6 +11,7 @@
   flex-direction: column;
   width: 800px;
   margin: 20px auto;
+  flex: 1
 }
 
 .contentHeader {
@@ -169,6 +170,22 @@
     width: 50px;
     height: 50px;
   }
+
+  .moreImages {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.6;
+  }
+}
 }
 
 .orderInfo {
@@ -257,4 +274,3 @@
     opacity: 0.8;
   }
 }
-

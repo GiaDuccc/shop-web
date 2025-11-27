@@ -6,15 +6,8 @@ import ProductCardDetail from '~/pages/ProductPage/ProductList/ProductCardDetail
 import { useSearchParams } from 'react-router-dom'
 import '~/App.scss'
 import styles from './Slider.module.scss'
-
-interface Product {
-  _id: string
-  name: string
-  slug: string
-  price: number
-  adImage: string
-  [key: string]: any
-}
+import { Product } from '~/interface/product.interface'
+import Cart from '../Cart/Cart'
 
 interface SliderProps {
   id: string
@@ -29,6 +22,7 @@ function Slider({ id, name, type, brand }: SliderProps) {
   const [productSelected, setProductSelected] = useState<Product | null>(null)
   const [, setSearchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isActiveCart, setIsActiveCart] = useState<boolean>(false)
 
   useEffect(() => {
     (async () => {
@@ -95,7 +89,15 @@ function Slider({ id, name, type, brand }: SliderProps) {
         </div>
       )}
       {productSelected && (
-        <ProductCardDetail open={Boolean(productSelected)} onClose={() => setProductSelected(null)} product={productSelected} />
+        <ProductCardDetail 
+          open={Boolean(productSelected)} 
+          onClose={() => setProductSelected(null)} 
+          product={productSelected} 
+          onGoToCart={() => setIsActiveCart(true)}
+        />
+      )}
+      {isActiveCart && (
+        <Cart open={isActiveCart} toggleDrawer={() => setIsActiveCart(false)} />
       )}
     </div>
   )

@@ -95,3 +95,10 @@ export const getTypeAndNavbarImageFromBrand = async (brand: string) => {
   })
   return response.data
 }
+
+export const searchProducts = async (keyword: string) => {
+  const response = await axios.get(`${API_ROOT}/v1/products/searchProducts`, {
+    params: { keyword }
+  })
+  return response.data
+}

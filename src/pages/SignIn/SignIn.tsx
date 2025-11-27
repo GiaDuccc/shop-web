@@ -11,7 +11,8 @@ import dangerIcon from '~/assets/danger.png'
 import dingSound from '~/assets/ding-sound.mp3'
 import styles from './SignIn.module.scss'
 import '~/App.scss'
- 
+import { createCartAPI, findCartByCustomerId } from '~/apis/cartApi'
+
 export default function SignIn() {
 
   const [user, setUser] = useState(true)
@@ -33,12 +34,19 @@ export default function SignIn() {
       username: inputValue,
       password: passwordValue
     }
-    // setTimeout(async () => {
     await fetchLoginAPI(user)
-      .then(data => {
+      .then(async (data) => {
+        console.log(data)
         // Lưu JWT token và refresh token
         localStorage.setItem('accessToken', data.token)
         localStorage.setItem('refreshToken', data.refreshToken)
+
+        let cart = {}
+        cart = await findCartByCustomerId(data.user._id)
+        console.log(cart)
+        if (!cart) {
+          cart = await createCartAPI(data.user._id)
+        }
 
         tickSound.volume = 0.4
         tickSound.play()
@@ -53,7 +61,6 @@ export default function SignIn() {
         setSubmitStatus('failed')
         setIsValid(error.response?.data?.message || 'Login failed')
       })
-    // }, 2000)
   }
 
   setTimeout(() => {

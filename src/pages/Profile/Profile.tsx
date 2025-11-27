@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import settingsIcon from '~/assets/settings.png'
 import editIcon from '~/assets/edit.png'
 import logOutIcon from '~/assets/logout.png'
+import moreIcon from '~/assets/3dot.png'
 import { useEffect, useState } from 'react'
 import { fetchCustomerDetailAPI, updateCustomer } from '~/apis/customerApi'
-import { fetchGetOrder } from '~/apis/orderApi'
+import { getCustomerOrdersAPI } from '~/apis/orderApi'
 import { fetchLogoutAPI } from '~/apis/authApi'
 import OrderDetail from '~/components/OrderDetail/OrderDetail'
 import '~/App.scss'
@@ -15,43 +16,16 @@ import Footer from '~/components/Footer/Footer'
 import { jwtDecode } from 'jwt-decode'
 import styles from './Profile.module.scss'
 import { useForm, Controller } from 'react-hook-form'
-
-interface Order {
-    address: string;
-    createdAt: string;
-    items: any[];
-    name: string;
-    payment: string;
-    phone: string;
-    status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'canceled';
-    totalPrice: number;
-    updateAt: string;
-    _destroy: boolean;
-    _id: string;
-}
-
-interface Customer {
-    _id: string;
-    lastName?: string;
-    firstName?: string;
-    email?: string;
-    phone?: string;
-    address?: string;
-    dob?: string;
-    country?: string;
-    createdAt?: string;
-    isActive?: boolean;
-    role?: string;
-    orders?: Array<{ orderId: string; status: string }>;
-    [key: string]: any;
-}
+import { Order } from '~/interface/order.interface'
+import { Customer } from '~/interface/customer.interface'
+import { fetchProductDetailsAPI } from '~/apis/productApi'
 
 interface FormData {
-    lastName: string;
-    firstName: string;
-    email: string;
-    phone: string;
-    address: string;
+  lastName: string;
+  firstName: string;
+  email: string;
+  phone: string;
+  address: string;
 }
 
 export default function Profile() {
@@ -84,38 +58,29 @@ export default function Profile() {
   })
 
   const fetchOrders = async () => {
-    try {
-      setIsLoadingOrder(true)
-      const customer = await fetchCustomerDetailAPI(user.userId)
-      console.log(customer)
-      setCustomer(customer)
+    setIsLoadingOrder(true)
+    const customer = await fetchCustomerDetailAPI(user.userId)
+    setCustomer(customer)
 
-      let newOrders: Order[] = []
-      if (customer.orders) {
-        for (const order of customer.orders) {
-          if (order.status !== 'cart') {
-            try {
-              const data = await fetchGetOrder(order.orderId)
-              newOrders.push(data)
-            } catch (orderError: any) {
-              console.error('Error fetching order:', order.orderId, orderError)
-              // Continue với order khác nếu có lỗi
-            }
-          }
+    const orders = await getCustomerOrdersAPI(user.userId)
+
+    const allOrderItems = await Promise.all(
+      orders.map(async (order: Order) => {
+        const orderItems = await Promise.all(
+          order.items.map(async (item) => {
+            const productData = await fetchProductDetailsAPI(item.productId)
+            return productData
+          })
+        )
+        return {
+          ...order,
+          items: orderItems
         }
-        setOrders(newOrders.reverse().slice(0, 10))
-      }
-    } catch (error: any) {
-      console.error('Error fetching orders:', error)
-      // Nếu là lỗi authentication, redirect về login
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
-        navigate('/sign-in')
-      }
-    } finally {
-      setIsLoadingOrder(false)
-    }
+      })
+    )
+
+    setOrders(allOrderItems.slice(0, 10).reverse())
+    setIsLoadingOrder(false)
   }
 
   function getCountryName(code: string) {
@@ -149,26 +114,27 @@ export default function Profile() {
   }
 
   const handleUpdateInfo = async (formData: FormData) => {
-    // So sánh formData với customer, chỉ lấy các trường thay đổi
-    const changedFields: Record<string, any> = {};
-    Object.keys(formData).forEach((key) => {
-      if (formData[key as keyof FormData] !== customer[key]) {
-        changedFields[key] = formData[key as keyof FormData];
+    const changedFields: Partial<FormData> = {};
+
+    (Object.keys(formData) as Array<keyof FormData>).forEach((key) => {
+      if (formData[key] !== customer[key]) {
+        changedFields[key] = formData[key];
       }
     });
+
     if (Object.keys(changedFields).length === 0) {
       setIsEdit(false);
       return;
     }
+
     try {
       await updateCustomer(customer._id, changedFields);
       setIsEdit(false);
       fetchOrders();
-    } catch (error: any) {
-      console.error('Update customer error:', error);
-      // Handle specific errors if needed
+    } catch (error) {
+      console.error("Update customer error:", error);
     }
-  }
+  };
 
   useEffect(() => {
     if (!user) {
@@ -510,7 +476,7 @@ export default function Profile() {
                 )}
               />
 
-              {/* Submit Button */}
+              {/* Update Button */}
               <button
                 type="submit"
                 disabled={!isDirty || !isValid}
@@ -564,27 +530,42 @@ export default function Profile() {
           {/* Order history */}
           {(orders.length > 0 && !isLoadingOrder) && (
             <div className={styles.ordersContainer}>
-              {orders?.map((order, idx) => (
+              {orders?.map((order, index) => (
                 <div
                   onClick={() => setOrderDetail(order._id)}
                   className={`fade-in-up ${styles.orderCard}`}
-                  key={idx}
+                  key={index}
                 >
                   {/* Img and quatity */}
                   <div className={styles.orderImages}>
-                    {order.items.slice(0, 4).map((product, idx) => (
+                    {order.items.length > 4 ? (
+                      <>
+                        {order.items.slice(0, 3).map((product, idx) => (
+                          <img
+                            key={idx}
+                            src={product.adImage}
+                            className={order.items.length === 1 ? styles.singleImage : styles.multipleImage}
+                            alt="product"
+                          />
+                        ))}
+                        <div className={styles.moreImages}>
+                          <img src={moreIcon} alt="more" />
+                        </div>
+                      </>
+                    ) : order.items.slice(0, 4).map((product, idx) => (
                       <img
                         key={idx}
-                        src={product.image}
+                        src={product.adImage}
                         className={order.items.length === 1 ? styles.singleImage : styles.multipleImage}
                         alt="product"
                       />
-                    ))}
+                    ))
+                    }
                   </div>
                   {/* Name & color & size */}
                   <div className={styles.orderInfo}>
                     <p className={styles.orderId}>
-                      Order #{order._id.slice(0, order._id.length / 2)}
+                      Order #{order._id}
                     </p>
                     <p className={styles.orderStatus}>
                       {'Status: '}
