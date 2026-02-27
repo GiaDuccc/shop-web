@@ -9,13 +9,14 @@ import Search from '../Search/Search'
 import { jwtDecode } from 'jwt-decode'
 import styles from './Header.module.scss'
 import RightIcon from '~/assets/right-icon.svg?react'
+import CartNoSignIn from '../Cart/CartNoSignIn'
 
 // const headerHeight = (theme) => theme.shop.headerHeight // fallback, dùng biến css nếu có'
 const headerHeight = '46px'
 
 
 function Header() {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = localStorage.getItem('accessTokenClient')
   const token = accessToken ? jwtDecode(accessToken) : null
   const [openCart, setOpenCart] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
@@ -47,7 +48,7 @@ function Header() {
         <a href="/nike" className={styles.navLink}>Nike</a>
         <a href="/adidas" className={styles.navLink}>Adidas</a>
         <a href="/puma" className={styles.navLink}>Puma</a>
-        <a href="/new-balance" className={styles.navLink}>NewBalance</a>
+        <a href="/newbalance" className={styles.navLink}>NewBalance</a>
         <a href="/vans" className={styles.navLink}>Vans</a>
         <a href="/balenciaga" className={styles.navLink}>Balenciaga</a>
       </nav>
@@ -72,14 +73,18 @@ function Header() {
           readOnly: true
         }}
       />
+      <a href={token ? '/profile' : '/sign-in'} className={`${isOpenMobileAndTabletNav ? styles.nonDisplay : styles.signInLink}`}>
+        <img src={signInIcon} alt="sign-in" className={styles.signInIcon} />
+      </a>
       <Search open={openSearch} toggleDrawer={() => setOpenSearch(!openSearch)} />
       <div className={`${isOpenMobileAndTabletNav ? styles.nonDisplay : styles.cartIconBox}`} onClick={() => setOpenCart(!openCart)}>
         <img src={shoppingBagIcon} alt="cart" className={styles.cartIcon} />
       </div>
-      <Cart open={openCart} toggleDrawer={() => setOpenCart(!openCart)} />
-      <a href={token ? '/profile' : '/sign-in'} className={`${isOpenMobileAndTabletNav ? styles.nonDisplay : styles.signInLink}`}>
-        <img src={signInIcon} alt="sign-in" className={styles.signInIcon} />
-      </a>
+      {token  ? (
+        <Cart open={openCart} toggleDrawer={() => setOpenCart(!openCart)} />
+      ) : (
+        <CartNoSignIn open={openCart} toggleDrawer={() => setOpenCart(!openCart)} />
+      )}
     </div>
   )
 }

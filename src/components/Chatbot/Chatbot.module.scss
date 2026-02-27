@@ -1,0 +1,243 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0 24px 12px 0;
+  background-color: #fff;
+  box-shadow: 2px 2px 10px #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.35s cubic-bezier(0.6, 0, 0.6, 1);
+}
+
+.containerCollapsed {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+}
+
+.containerExpanded {
+  width: 400px;
+  height: 500px;
+  border-radius: 5% 5% 0 5%;
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.innerContainerCollapsed {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+}
+
+.innerContainerExpanded {
+  width: 370px;
+  height: 470px;
+  border-radius: 5%;
+}
+
+.title {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  transition: opacity 0.3s ease-out;
+}
+
+.titleHidden {
+  display: none;
+  opacity: 0;
+}
+
+.titleVisible {
+  display: block;
+  opacity: 1;
+}
+
+.toggleButton {
+  border-radius: 50%;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.toggleButtonCollapsed {
+  width: 55px;
+  height: 55px;
+}
+
+.toggleButtonExpanded {
+  width: 40px;
+  height: 40px;
+}
+
+.toggleIcon {
+  user-select: none;
+}
+
+.toggleIconCollapsed {
+  width: 36px;
+  transform: scaleX(-1);
+}
+
+.toggleIconExpanded {
+  width: 20px;
+}
+
+.chatBox {
+  margin-top: 52px;
+  border-radius: 16px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.conversationContainer {
+  background-color: #fafafa;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 8px;
+  gap: 8px;
+  border-radius: 16px 16px 0 0;
+  scrollbar-width: none;
+  transition: all 0.3s ease-out;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.conversationHidden {
+  opacity: 0;
+}
+
+.conversationVisible {
+  opacity: 1;
+}
+
+.messageWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.messageBubble {
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin: 0;
+  max-width: 80%;
+  word-break: break-word;
+  font-size: 14px;
+}
+
+.messageBubbleMe {
+  align-self: flex-end;
+  background-color: #e9e9e9;
+  color: black;
+}
+
+.messageBubbleBot {
+  align-self: flex-start;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+}
+
+.messageTime {
+  margin: 0;
+  font-size: 10px;
+  padding: 2px 6px;
+  background-color: #e9e9e9;
+  border-radius: 10px;
+}
+
+.messageTimeMe {
+  align-self: flex-end;
+}
+
+.messageTimeBot {
+  align-self: flex-start;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background-color: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  border-radius: 0 0 16px 16px;
+  transition: opacity 0.3s ease-out;
+}
+
+.inputContainerHidden {
+  opacity: 0;
+}
+
+.inputContainerVisible {
+  opacity: 1;
+}
+
+.textField {
+  flex: 1;
+  background-color: white;
+
+  :global(.MuiOutlinedInput-root) {
+    border-radius: 16px;
+    padding: 10px 12px;
+
+    :global(fieldset) {
+      border-color: rgb(200, 200, 200);
+      border-width: 2px;
+      border-radius: 16px;
+    }
+
+    &:hover :global(fieldset) {
+      border-color: rgb(150, 150, 150);
+    }
+
+    &:global(.Mui-focused) :global(fieldset) {
+      border-color: rgba(0, 0, 0, 0.65);
+    }
+  }
+
+  :global(.MuiOutlinedInput-input) {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+}
+
+.sendButton {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sendButtonHidden {
+  display: none;
+}
+
+.sendIcon {
+  width: 24px;
+  user-select: none;
+}

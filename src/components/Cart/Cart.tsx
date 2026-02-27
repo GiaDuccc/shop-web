@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 import Drawer from '@mui/material/Drawer'
-import { fetchCustomerDetailAPI } from '~/apis/customerApi'
-import { fetchProductDetailsAPI } from '~/apis/productApi'
 import { useEffect, useState } from 'react'
 import removeIcon from '~/assets/minus.png'
 import addIcon from '~/assets/plus.png'
@@ -12,7 +10,9 @@ import { useNavigate } from 'react-router-dom'
 import closeIcon from '~/assets/x-white.png'
 import { jwtDecode } from 'jwt-decode'
 import styles from './Cart.module.scss'
-import { findCartByCustomerId, updateCartAPI } from '~/apis/cartApi'
+import { findCartByCustomerId, updateCartAPI } from '~/apis/clientAPI/cartApi'
+import { fetchCustomerDetailAPI } from '~/apis/clientAPI/customerApi'
+import { fetchProductDetailsAPI } from '~/apis/clientAPI/productApi'
 import { Cart } from '~/interface/cart.interface'
 import { Product } from '~/interface/product.interface'
 
@@ -23,8 +23,8 @@ interface ShoppingCartProps {
 
 function ShoppingCart({ open, toggleDrawer }: ShoppingCartProps) {
 
-  const accessToken = localStorage.getItem('accessToken')
-  const token = accessToken ? jwtDecode(accessToken) as { userId: string } : null
+  const accessToken = localStorage.getItem('accessTokenClient')
+  const token = accessToken ? jwtDecode(accessToken) as { sub: string } : null
 
   const [customer, setCustomer] = useState(null)
 
@@ -99,10 +99,10 @@ function ShoppingCart({ open, toggleDrawer }: ShoppingCartProps) {
 
       if (!token) return
 
-      const customer = await fetchCustomerDetailAPI(token.userId)
+      const customer = await fetchCustomerDetailAPI(token.sub)
       setCustomer(customer)
 
-      const cart = await findCartByCustomerId(token.userId)
+      const cart = await findCartByCustomerId(token.sub)
 
       let productsData = []
       if (cart.items.length > 0) {

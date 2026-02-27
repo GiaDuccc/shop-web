@@ -5,12 +5,12 @@ import closeIcon from '~/assets/x-white.png'
 import closeIconBlack from '~/assets/x.png'
 import logoIcon from '~/assets/logo2.png'
 import { useEffect, useState } from 'react'
-import ProductCardDetail from '~/pages/ProductPage/ProductList/ProductCardDetail/ProductCardDetail'
+import ProductCardDetail from '~/components/ProductCardDetail/ProductCardDetail'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import '~/App.scss'
 import styles from './Search.module.scss'
 import { Product } from '~/interface/product.interface'
-import { searchProducts } from '~/apis/productApi'
+import { searchProducts } from '~/apis/clientAPI/productApi'
 
 interface SearchProps {
   open: boolean
@@ -324,7 +324,6 @@ function Search({ open, toggleDrawer }: SearchProps) {
           onClose={() => {
             setSelectedProduct(null)
           }}
-          onGoToCart={() => { }}
         />
       )}
     </>

@@ -1,10 +1,10 @@
-import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { useEffect, useRef, useState } from 'react'
 import closeIcon from '~/assets/x-white.png'
 import logoIcon from '~/assets/logo-white2.png'
 import sendIcon from '~/assets/send.png'
 import sendFillIcon from '~/assets/send-fill.png'
+import styles from './Chatbot.module.scss'
 import '~/App.scss'
 import { chatbot } from '~/apis'
 
@@ -37,7 +37,7 @@ function Chatbot() {
   }
 
   useEffect(() => {
-    const text = 'Đây chỉ là bản thử nghiệm. Dùng để kiểm tra sản phẩm đang có ở store. Cú pháp cần bao gồm hãng, tên, màu sắc, kích thước'
+    const text = 'Chatbot để kiểm tra sản phẩm đang có sẵn tại cửa hàng. Cú pháp cần bao gồm hãng, tên, màu sắc, kích thước'
     if (isExpand && !conversation.length) {
       setTimeout(() => {
         setConversation([{ text: text, time: new Date(), sender: 'chatbot' }])
@@ -63,143 +63,48 @@ function Chatbot() {
   }, [isExpand])
 
   return (
-    <Box
+    <div
       onClick={() => setIsExpand(true)}
-      sx={{
-        position: 'fixed',
-        bottom: 0, right: 0,
-        m: '0 24px 12px 0',
-        width: isExpand ? '400px' : '65px',
-        height: isExpand ? '500px' : '65px',
-        bgcolor: '#fff',
-        transition: 'all 0.35s cubic-bezier(0.6, 0, 0.6, 1)',
-        borderRadius: isExpand ? '5% 5% 0 5%' : '50%',
-        boxShadow: '2px 2px 10px #ccc',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 1000
-      }}
+      className={`${styles.container} ${isExpand ? styles.containerExpanded : styles.containerCollapsed}`}
     >
-      <Box
-        sx={{
-          width: isExpand ? '370px' : '55px',
-          height: isExpand ? '470px' : '55px',
-          borderRadius: isExpand ? '5%' : '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          transition: 'all 0.4s cubic-bezier(0.42, 0, 0.58, 1)'
-        }}
-      >
-        <p style={{
-          position: 'absolute',
-          top: 0, left: 4,
-          margin: 0,
-          fontSize: '32px', fontWeight: '600',
-          display: isExpand ? 'block' : 'none',
-          opacity: showConversation ? 1 : 0
-        }}>Chatbot</p>
+      <div className={`${styles.innerContainer} ${isExpand ? styles.innerContainerExpanded : styles.innerContainerCollapsed}`}>
+        <p className={`${styles.title} ${isExpand ? (showConversation ? styles.titleVisible : styles.titleHidden) : styles.titleHidden}`}>Chatbot</p>
 
         {/* Toggle Button */}
-        <Box
+        <div
           onClick={(e) => {
             e.stopPropagation()
             setIsExpand(prev => !prev)
           }}
-          sx={{
-            width: isExpand ? '40px' : '55px',
-            height: isExpand ? '40px' : '55px',
-            borderRadius: '50%',
-            bgcolor: '#000',
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer'
-          }}
+          className={`${styles.toggleButton} ${isExpand ? styles.toggleButtonExpanded : styles.toggleButtonCollapsed}`}
         >
           <img
-            className='fade-in'
+            className={`fade-in ${styles.toggleIcon} ${isExpand ? styles.toggleIconExpanded : styles.toggleIconCollapsed}`}
             src={isExpand ? closeIcon : logoIcon}
-            style={{ width: isExpand ? '20px' : '36px', userSelect: 'none', transform: isExpand ? 'none' : 'scaleX(-1)' }}
+            alt="Toggle"
           />
-        </Box>
+        </div>
 
         {/* Chat Box */}
         {isExpand && (
-          <Box
-            className='fade-in'
-            sx={{
-              mt: '52px',
-              borderRadius: '16px',
-              height: '90%',
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              position: 'relative'
-            }}
-          >
+          <div className={`${styles.chatBox} fade-in`}>
             {/* Conversation */}
-            <Box
-              sx={{
-                bgcolor: '#fafafa',
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                overflowY: 'auto',
-                p: '8px',
-                gap: 1,
-                borderRadius: '16px 16px 0 0',
-                scrollbarWidth: 'none',
-                transition: 'all 0.3s ease-out',
-                opacity: showConversation ? 1 : 0,
-                '&::-webkit-scrollbar': {
-                  display: 'none'
-                }
-              }}
-            >
+            <div className={`${styles.conversationContainer} ${showConversation ? styles.conversationVisible : styles.conversationHidden}`}>
               {conversation.map((message, idx) => (
-                <Box key={idx} className='fade-in-up' sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                  <p style={{
-                    alignSelf: message.sender === 'me' ? 'flex-end' : 'flex-start',
-                    backgroundColor: message.sender === 'me' ? '#e9e9e9' : 'rgba(0,0,0,.85)',
-                    padding: '4px 12px',
-                    borderRadius: '12px',
-                    margin: 0,
-                    maxWidth: '80%',
-                    wordBreak: 'break-word',
-                    color: message.sender === 'me' ? 'black' : 'white',
-                    fontSize: '14px'
-                  }}>{message.text}</p>
-                  <p style={{
-                    margin: 0,
-                    fontSize: '10px',
-                    alignSelf: message.sender === 'me' ? 'flex-end' : 'flex-start',
-                    padding: '2px 6px',
-                    backgroundColor: '#e9e9e9',
-                    borderRadius: '10px'
-                  }}>{new Date(message.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                </Box>
+                <div key={idx} className={`${styles.messageWrapper} fade-in-up`}>
+                  <p className={`${styles.messageBubble} ${message.sender === 'me' ? styles.messageBubbleMe : styles.messageBubbleBot}`}>
+                    {message.text}
+                  </p>
+                  <p className={`${styles.messageTime} ${message.sender === 'me' ? styles.messageTimeMe : styles.messageTimeBot}`}>
+                    {new Date(message.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
               ))}
               <div ref={bottomRef} />
-            </Box>
+            </div>
 
             {/* Input */}
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1.5,
-                p: '8px',
-                bgcolor: '#fafafa',
-                borderTop: '1px solid #e0e0e0',
-                borderRadius: '0 0 16px 16px',
-                opacity: showConversation ? 1 : 0
-              }}
-            >
+            <div className={`${styles.inputContainer} ${showConversation ? styles.inputContainerVisible : styles.inputContainerHidden}`}>
               <TextField
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -214,54 +119,25 @@ function Chatbot() {
                 autoComplete='off'
                 spellCheck={false}
                 variant='outlined'
-                sx={{
-                  flex: 1,
-                  backgroundColor: 'white',
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '16px',
-                    padding: '10px 12px',
-                    '& fieldset': {
-                      borderColor: 'rgb(200, 200, 200)',
-                      borderWidth: '2px',
-                      borderRadius: '16px'
-                    },
-                    '&:hover fieldset': {
-                      borderColor: 'rgb(150, 150, 150)'
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.65)'
-                    }
-                  },
-                  '& .MuiOutlinedInput-input': {
-                    fontSize: '16px',
-                    color: 'rgba(0, 0, 0, 0.85)'
-                  }
-                }}
+                className={styles.textField}
               />
-              <Box
-                className='boom-small'
+              <div
+                className={`boom-small ${styles.sendButton} ${input.length >= 1 ? '' : styles.sendButtonHidden}`}
                 onMouseEnter={() => setIsHoverSend(true)}
                 onMouseLeave={() => setIsHoverSend(false)}
                 onClick={handleSend}
-                sx={{
-                  width: '30px',
-                  height: '30px',
-                  display: input.length >= 1 ? 'flex' : 'none',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer'
-                }}
               >
                 <img
                   src={isHoverSend ? sendFillIcon : sendIcon}
-                  style={{ width: '24px', userSelect: 'none' }}
+                  className={styles.sendIcon}
+                  alt="Send"
                 />
-              </Box>
-            </Box>
-          </Box>
+              </div>
+            </div>
+          </div>
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 

@@ -1,0 +1,124 @@
+
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 8px;
+  padding: 32px;
+}
+
+.content {
+  display: flex;
+  gap: 24px;
+  height: 100%;
+  width: 100%;
+}
+
+.mainColumn {
+  flex: 7.5;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.filterWrapper {
+  display: flex;
+  height: fit-content;
+  width: 100%;
+}
+
+.filterButtons {
+  display: flex;
+  background-color: #f6f6f6;
+  width: fit-content;
+  border-radius: 16px;
+}
+
+.filterButton {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  transition: all 0.25s ease-in-out;
+  background: transparent;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.filterButtonFirst {
+  border-radius: 16px 0 0 16px;
+}
+
+.filterButtonLast {
+  border-radius: 0 16px 16px 0;
+}
+
+.filterButtonActive {
+  background-color: #000000c4;
+  color: #fff;
+}
+
+.filterButton:not(.filterButtonActive):hover {
+  background-color: #000000c4;
+  color: #fff;
+}
+
+.chartWrapper {
+  flex: 8;
+  width: 100%;
+}
+
+.statList {
+  flex: 2.5;
+  display: flex;
+  gap: 16px;
+}
+
+.statCard {
+  flex: 1;
+  padding: 12px 24px;
+  border-radius: 20px;
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.statTitle {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 48px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.statSub {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.profitCard {
+  flex: 2.5;
+}
+
+.profitValue {
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 72px;
+}
+

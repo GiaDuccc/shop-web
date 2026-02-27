@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getTypeAndNavbarImageFromBrand } from '~/apis/productApi'
+import { getTypeAndNavbarImageFromBrand } from '~/apis/clientAPI/productApi'
 import '~/App.scss'
 import FadeInSection from '../FadeInSection/FadeInSection60'
 import styles from './NavBar.module.scss'

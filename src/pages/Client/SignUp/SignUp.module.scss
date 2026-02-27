@@ -1,0 +1,231 @@
+// Container
+.container {
+  background-color: white;
+  width: 100%;
+  height: 1000px;
+}
+
+// Title Section
+.titleSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px auto 0;
+  width: 70%;
+}
+
+.titleText {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+  font-size: 24px;
+  margin: 0;
+}
+
+.navLinks {
+  display: flex;
+  gap: 32px;
+
+  a {
+    color: rgb(105, 105, 105);
+    text-decoration: none;
+
+    &:hover {
+      color: rgb(105, 105, 105);
+      text-decoration: underline;
+    }
+  }
+}
+
+.disabledLink {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+// Divider
+.divider {
+  width: 70%;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 4px auto;
+}
+
+.sectionDivider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1px 0 12px;
+}
+
+// Form Container
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  margin: 48px auto 0;
+  text-align: center;
+  gap: 16px;
+}
+
+// Header Section
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mainTitle {
+  color: rgb(78, 78, 78);
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.subtitle {
+  color: rgb(78, 78, 78);
+  font-size: 18px;
+  padding-bottom: 8px;
+  margin: 0;
+}
+
+.signInPrompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  
+  p {
+    color: rgb(78, 78, 78);
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.signInLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  a {
+    color: #06c;
+    font-size: 18px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Name Fields
+.nameFields {
+  display: flex;
+  gap: 16px;
+}
+
+// Select Wrapper
+.selectWrapper {
+  position: relative;
+}
+
+.selectIcon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  opacity: 0.5;
+}
+
+// Date Section
+.dateSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.dateLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(78, 78, 78);
+  margin: 0;
+}
+
+.dateFields {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.dateField {
+  width: 100%;
+}
+
+// Error Message
+.errorMessage {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  color: rgb(184, 53, 53);
+
+  p {
+    margin: 0;
+  }
+
+  &.visible {
+    display: flex;
+  }
+}
+
+.errorIcon {
+  width: 18px;
+  height: 18px;
+}
+
+// Submit Button
+.submitButton {
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 100%;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+  }
+
+  img {
+    width: 30px;
+  }
+}
+
+.submitButton.active {
+  opacity: 1;
+
+  &:hover {
+    transform: scale(1.02);
+    transform-origin: center;
+    cursor: pointer;
+  }
+}
+
+.submitButton.disabled {
+  opacity: 0.6;
+
+  &:hover {
+    transform: none;
+    cursor: not-allowed;
+  }
+}

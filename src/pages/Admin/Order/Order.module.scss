@@ -1,0 +1,348 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 40px;
+  margin-right: 44px;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 8;
+  background-color: rgb(243 243 243);
+  border-radius: 40px;
+  padding-left: 16px;
+}
+
+.searchInput {
+  flex: 1;
+  height: 40px;
+  color: #000;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.searchInputProps {
+  background-color: rgba(242, 242, 242, 0.9);
+  border-radius: 40px;
+  padding: 0;
+
+  &:hover {
+    background-color: rgb(228, 228, 228);
+  }
+}
+
+.searchButton {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(242, 242, 242, 0.9);
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(202, 202, 202);
+  }
+
+  img {
+    height: 16px;
+    width: auto;
+  }
+}
+
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40vh;
+}
+
+.content {
+  margin-top: 24px;
+}
+
+.orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.orderRow {
+  display: flex;
+  align-items: center;
+}
+
+.orderCard {
+  display: flex;
+  height: fit-content;
+  gap: 16px;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-radius: 16px;
+  flex: 1;
+}
+
+.orderImages {
+  display: flex;
+  gap: 8px;
+  width: 120px;
+  height: 120px;
+  flex-wrap: wrap;
+}
+
+.productImage {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productImageSingle {
+  width: 100%;
+  height: 100%;
+}
+
+.productImageMultiple {
+  width: 55px;
+  height: 55px;
+}
+
+.dotIconWrapper {
+  width: 55px;
+  height: 55px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+
+  img {
+    width: 20px;
+  }
+}
+
+.orderInfo {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.orderTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.orderText {
+  font-size: 16px;
+  color: #696969;
+}
+
+.orderTextSpan {
+  padding-bottom: 0.5px;
+  color: #000;
+}
+
+.statusRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.statusInner {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.statusLabel {
+  font-size: 16px;
+  color: #696969;
+}
+
+.statusButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1);
+
+  &:hover {
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  &:hover p {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+  }
+}
+
+.statusText {
+  font-size: 16px;
+  user-select: none;
+  border-bottom: 1px solid black;
+}
+
+.updateIcon {
+  width: 12px;
+}
+
+.statusActions {
+  display: flex;
+  gap: 8px;
+
+  & div {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.42, 0, 0.58, 1);
+  }
+
+  & div:hover {
+    opacity: 0.5;
+  }
+}
+
+.statusActionsHidden {
+  display: none;
+}
+
+.cancelButton {
+  background-color: #ccc;
+
+  img {
+    width: 13px;
+  }
+}
+
+.confirmButton {
+  background-color: #000;
+
+  img {
+    width: 13px;
+  }
+}
+
+.orderAddress {
+  border-bottom: 1px solid black;
+  padding-bottom: 0.5px;
+  color: black;
+}
+
+.orderPricing {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.orderPrice {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.orderDate {
+  font-size: 14px;
+  font-weight: 600;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.actions {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  img:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+}
+
+.actionIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.pagination {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.paginationSpacer {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+}
+
+.paginationButton {
+  background-color: #f3f3f3;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 36px;
+  transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1);
+  transform-origin: center;
+  color: rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+    box-shadow: 0.5px 0.5px 10px rgb(220, 220, 220);
+  }
+
+  &:hover img {
+    filter: invert(100%);
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.pageNumber {
+  color: #000;
+  font-size: 16px;
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

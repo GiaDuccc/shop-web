@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { fetchLimitedProductsAPI } from '~/apis/productApi'
+import { fetchLimitedProductsAPI } from '~/apis/clientAPI/productApi'
 import rightIcon from '~/assets/right.png'
 import leftIcon from '~/assets/left.png'
-import ProductCardDetail from '~/pages/ProductPage/ProductList/ProductCardDetail/ProductCardDetail'
+import ProductCardDetail from '~/components/ProductCardDetail/ProductCardDetail'
 import { useSearchParams } from 'react-router-dom'
 import '~/App.scss'
 import styles from './Slider.module.scss'
 import { Product } from '~/interface/product.interface'
-import Cart from '../Cart/Cart'
 
 interface SliderProps {
   id: string
@@ -22,7 +21,6 @@ function Slider({ id, name, type, brand }: SliderProps) {
   const [productSelected, setProductSelected] = useState<Product | null>(null)
   const [, setSearchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isActiveCart, setIsActiveCart] = useState<boolean>(false)
 
   useEffect(() => {
     (async () => {
@@ -93,11 +91,7 @@ function Slider({ id, name, type, brand }: SliderProps) {
           open={Boolean(productSelected)} 
           onClose={() => setProductSelected(null)} 
           product={productSelected} 
-          onGoToCart={() => setIsActiveCart(true)}
         />
-      )}
-      {isActiveCart && (
-        <Cart open={isActiveCart} toggleDrawer={() => setIsActiveCart(false)} />
       )}
     </div>
   )

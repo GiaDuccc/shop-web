@@ -1,0 +1,132 @@
+.modal {
+  overflow-y: scroll;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.modalBackdrop {
+  min-height: 100vh;
+  height: fit-content;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.2);
+  align-items: center;
+}
+
+.modalContent {
+  width: 60%;
+  height: fit-content;
+  background-color: white;
+  outline: none;
+  border-radius: 28px;
+  margin: 52px 0;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 24px 100px 48px;
+  box-shadow: 4px 4px 15px rgb(138, 138, 138);
+}
+
+.closeButton {
+  background-color: #333336;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: -70px;
+
+  &:hover svg {
+    color: white;
+    transition: color 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  }
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.formItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.input {
+  height: 52px;
+  border: 2px solid #ccc;
+  border-radius: 16px;
+  padding: 0 12px;
+  font-size: 16px;
+}
+
+.select {
+  height: 52px;
+  border: 2px solid #ccc;
+  border-radius: 16px;
+  padding: 0 12px;
+  font-size: 16px;
+  padding-right: 12px;
+  appearance: none;
+}
+
+.submitButton {
+  width: 160px;
+  height: 42px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #333336;
+    transition: background-color 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  }
+}
+
+.statusIcon {
+  width: 24px;
+  height: 24px;
+}

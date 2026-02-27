@@ -1,0 +1,177 @@
+.container {
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+}
+
+.mainLayout {
+  display: flex;
+  height: 100%;
+}
+
+.sidebar {
+  background-color: #f6f6f6;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  padding: 16px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.optionItem {
+  padding: 16px 20px;
+  transition: all 0.25s cubic-bezier(0.42, 0, 0.58, 1);
+  border-radius: 16px;
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #fff;
+    transform: scale(1.02);
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+  }
+}
+
+.optionItemActive {
+  background-color: #fff;
+}
+
+.logoContainer {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+
+.logo {
+  width: 130px;
+  height: 130px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 150px;
+}
+
+.optionList {
+  flex: 1;
+}
+
+.logoutButton {
+  padding: 16px 20px;
+  transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 16px;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.logoutIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.sidebarSpacer {
+  width: 300px;
+}
+
+.content {
+  flex: 9;
+}
+
+.errorPage {
+  height: 98vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.errorImages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorImage {
+  width: 200px;
+}
+
+.errorText {
+  font-size: 44px;
+  font-weight: 700;
+  width: 750px;
+  text-align: center;
+  margin: 40px 0;
+  color: #c90000;
+}
+
+.errorButton {
+  background-color: #c90000;
+  padding: 12px 32px;
+  border: 4px solid #c90000;
+  border-radius: 32px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+
+  p {
+    color: white;
+    font-size: 20px;
+  }
+
+  &:hover {
+    background-color: white;
+
+    p {
+      color: #c90000;
+    }
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

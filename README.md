@@ -36,7 +36,9 @@
 ### Front-end: 
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
@@ -137,8 +139,14 @@
   - Administrators can assign specific roles to members (Admin, Manager, Client)
   - Includes sorting and searching features for easier customer management
 
+  ### 2.3. Employee Management
+  - Manage employee accounts and permissions
+  - View detailed employee information
+  - Add new employees and assign roles
+  - Only managers can delete employee accounts
+  - Includes sorting and searching features
 
-  ### 2.3. Product Management
+  ### 2.4. Product Management
   - User-friendly interface for managing products
 
   ![product](./public/introduce/admin-product.png)
@@ -150,7 +158,7 @@
   - Delete products with confirmation alert to prevent accidental removal
   - Includes sorting and searching features for easier product management
 
-  ### 2.4. Order Management
+  ### 2.5. Order Management
   - User-friendly interface for managing customer orders
   - View full order details including items, total price, and customer info
   - Order deletion is restricted to managers for safety
@@ -183,10 +191,10 @@ git clone https://github.com/GiaDuccc/shop-api.git
 ### # 3. Install dependencies
 ```yarn install```
 
-### # 4. Open file constants.js
+### # 4. Open file constants.ts
 ```
 cd \src\utils\
-code constants.js
+code constants.ts
 
 
 let apiRoot = ''
@@ -242,159 +250,219 @@ CLOUDINARY_URL =
 ```
 shop-web/
 ├── public/
-│   └── (Your public assets like index.html, favicon.ico, etc.)
+│   └── (Your public assets like favicon.ico, images, etc.)
 │
 ├── src/
 │   ├── apis/
-│   │   └── index.js
+│   │   └── index.ts
 │   │
 │   ├── assets/
-│   │   └── (Your image files, font files, etc.)
+│   │   └── (Your image files, font files, SVG icons, etc.)
 │   │
 │   ├── components/
 │   │   ├── Button/
-│   │   │   └── Button.jsx
+│   │   │   ├── Button.tsx
+│   │   │   └── Button.module.scss
 │   │   │
 │   │   ├── Cart/
-│   │   │   └── Cart.jsx
+│   │   │   ├── Cart.tsx
+│   │   │   └── Cart.module.scss
 │   │   │
 │   │   ├── Chatbot/
-│   │   │   └── Chatbot.jsx
+│   │   │   ├── Chatbot.tsx
+│   │   │   └── Chatbot.module.scss
+│   │   │
+│   │   ├── FadeInSection/
+│   │   │   └── FadeInSection.tsx
 │   │   │
 │   │   ├── Footer/
-│   │   │   └── Footer.jsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Footer.module.scss
 │   │   │
 │   │   ├── Header/
-│   │   │   └── Header.jsx
+│   │   │   ├── Header.tsx
+│   │   │   └── Header.module.scss
 │   │   │
 │   │   ├── HeroSection/
-│   │   │   └── HeroSection.jsx
+│   │   │   ├── HeroSection.tsx
+│   │   │   └── HeroSection.module.scss
 │   │   │
 │   │   ├── ModalWarning/
-│   │   │   └── ModalWarning.jsx
+│   │   │   ├── ModalWarning.tsx
+│   │   │   └── ModalWarning.module.scss
 │   │   │
 │   │   ├── NavBar/
-│   │   │   └── NavBar.jsx
+│   │   │   ├── NavBar.tsx
+│   │   │   └── NavBar.module.scss
 │   │   │
 │   │   ├── OrderDetail/
-│   │   │   └── OrderDetail.jsx
+│   │   │   ├── OrderDetail.tsx
+│   │   │   └── OrderDetail.module.scss
+│   │   │
+│   │   ├── ProductCardDetail/
+│   │   │   ├── ProductCardDetail.tsx
+│   │   │   └── ProductCardDetail.module.scss
 │   │   │
 │   │   ├── Search/
-│   │   │   └── Search.jsx
+│   │   │   ├── Search.tsx
+│   │   │   └── Search.module.scss
+│   │   │
+│   │   ├── SlideDownSection/
+│   │   │   └── SlideDownSection.tsx
 │   │   │
 │   │   ├── Slider/
-│   │   │   ├── Slider.jsx
-│   │   │   └── Slider_v2.jsx
-│   │   │
-│   │   ├── SliderUtilities/
-│   │   │   └── SliderUtilities.jsx
+│   │   │   ├── Slider.tsx
+│   │   │   └── Slider.module.scss
 │   │   │
 │   │   └── Slogan/
-│   │       └── Slogan.jsx
+│   │       ├── Slogan.tsx
+│   │       └── Slogan.module.scss
+│   │
+│   ├── hooks/
+│   │   └── (Custom React hooks)
+│   │
+│   ├── interface/
+│   │   └── (TypeScript interfaces and types)
 │   │
 │   ├── pages/
-│   │   ├── AdidasPage/
-│   │   │   └── AdidasPage.jsx
-│   │   │
 │   │   ├── Admin/
 │   │   │   ├── Customer/
 │   │   │   │   ├── CustomerDetail/
-│   │   │   │   │   └── CustomerDetail.jsx
+│   │   │   │   │   ├── CustomerDetail.tsx
+│   │   │   │   │   └── CustomerDetail.module.scss
 │   │   │   │   │
-│   │   │   │   └── Customer.jsx
+│   │   │   │   ├── Customer.tsx
+│   │   │   │   └── Customer.module.scss
 │   │   │   │
 │   │   │   ├── Dashboard/
-│   │   │   │   ├── ChartYear.jsx
-│   │   │   │   └── Dashboard.jsx
+│   │   │   │   ├── Dashboard.tsx
+│   │   │   │   └── Dashboard.module.scss
+│   │   │   │
+│   │   │   ├── Employee/
+│   │   │   │   ├── EmployeeDetail/
+│   │   │   │   │   ├── EmployeeDetail.tsx
+│   │   │   │   │   └── EmployeeDetail.module.scss
+│   │   │   │   │
+│   │   │   │   ├── AddEmployee/
+│   │   │   │   │   ├── AddEmployee.tsx
+│   │   │   │   │   └── AddEmployee.module.scss
+│   │   │   │   │
+│   │   │   │   ├── Employee.tsx
+│   │   │   │   └── Employee.module.scss
 │   │   │   │
 │   │   │   ├── Order/
-│   │   │   │   └── Order.jsx
+│   │   │   │   ├── Order.tsx
+│   │   │   │   └── Order.module.scss
 │   │   │   │
 │   │   │   ├── Product/
 │   │   │   │   ├── AddProduct/
-│   │   │   │   │   └── AddProduct.jsx
+│   │   │   │   │   └── AddProduct.tsx
 │   │   │   │   │
 │   │   │   │   ├── EditProduct/
-│   │   │   │   │   └── EditProduct.jsx
+│   │   │   │   │   └── EditProduct.tsx
 │   │   │   │   │
-│   │   │   │   ├── ModalWarning/
-│   │   │   │   │   └── ModalWarning.jsx
-│   │   │   │   │
-│   │   │   │   └── Product.jsx
+│   │   │   │   ├── Product.tsx
+│   │   │   │   ├── Product.module.scss
+│   │   │   │   └── Add&EditProduct.module.scss
 │   │   │   │
-│   │   │   └── Admin.jsx
-│   │   │
-│   │   ├── BalenciagaPage/
-│   │   │   └── BalenciagaPage.jsx
-│   │   │
-│   │   ├── Checkout/
-│   │   │   └── Checkout.jsx
-│   │   │
-│   │   ├── HomePage/
-│   │   │   ├── HomePage_v2.jsx
-│   │   │   └── HomePage.jsx
-│   │   │
-│   │   ├── NewBalancePage/
-│   │   │   └── NewBalance.jsx
-│   │   │
-│   │   ├── NikePage/
-│   │   │   ├── NikePage_v2.jsx
-│   │   │   └── NikePage.jsx
-│   │   │
-│   │   ├── ProductPage/
-│   │   │   ├── Filter/
-│   │   │   │   ├── FilterOptions/
-│   │   │   │   │   └── FilterOptions.jsx
-│   │   │   │   │
-│   │   │   │   ├── FilterItems/
-│   │   │   │   │   └── FilterItems.jsx
-│   │   │   │   │
-│   │   │   │   └── Filter.jsx
+│   │   │   ├── SignIn/
+│   │   │   │   ├── SignIn.tsx
+│   │   │   │   └── SignIn.module.scss
 │   │   │   │
-│   │   │   ├── ProductList/
-│   │   │   │   ├── ProductCard/
-│   │   │   │   │   └── ProductCard.jsx
-│   │   │   │   │
-│   │   │   │   ├── ProductCardDetail/
-│   │   │   │   │   └── ProductCardDetail.jsx
-│   │   │   │   │
-│   │   │   │   └── ProductList.jsx
-│   │   │   │
-│   │   │   ├── ProductPage_v2.jsx
-│   │   │   └── ProductPage_v1.jsx
+│   │   │   ├── Admin.tsx
+│   │   │   └── Admin.module.scss
 │   │   │
-│   │   ├── Profile/
-│   │   │   └── Profile.jsx
-│   │   │
-│   │   ├── PumaPage/
-│   │   │   └── PumaPage.jsx
-│   │   │
-│   │   ├── SignIn/
-│   │   │   └── SignIn.jsx
-│   │   │
-│   │   ├── SignUp/
-│   │   │   └── SignUp.jsx
-│   │   │
-│   │   ├── selectValue.jsx
-│   │   │
-│   │   └── VansPage/
-│   │       └── VansPage.jsx
+│   │   └── Client/
+│   │       ├── About/
+│   │       │   ├── About.tsx
+│   │       │   └── About.module.scss
+│   │       │
+│   │       ├── AdidasPage/
+│   │       │   └── AdidasPage.tsx
+│   │       │
+│   │       ├── BalenciagaPage/
+│   │       │   └── BalenciagaPage.tsx
+│   │       │
+│   │       ├── Checkout/
+│   │       │   ├── Checkout.tsx
+│   │       │   └── Checkout.module.scss
+│   │       │
+│   │       ├── HomePage/
+│   │       │   ├── HomePage.tsx
+│   │       │   └── HomePage.module.scss
+│   │       │
+│   │       ├── NewBalancePage/
+│   │       │   └── NewBalancePage.tsx
+│   │       │
+│   │       ├── NikePage/
+│   │       │   └── NikePage.tsx
+│   │       │
+│   │       ├── ProductPage/
+│   │       │   ├── Filter/
+│   │       │   │   ├── FilterOptions/
+│   │       │   │   │   ├── FilterOptions.tsx
+│   │       │   │   │   │
+│   │       │   │   │   ├── FilterItems/
+│   │       │   │   │   │   ├── FilterItems.tsx
+│   │       │   │   │   │   └── FilterItems.module.scss
+│   │       │   │   │   │
+│   │       │   │   │   └── FilterOptions.module.scss
+│   │       │   │   │
+│   │       │   │   └── Filter.tsx
+│   │       │   │
+│   │       │   ├── ProductList/
+│   │       │   │   ├── ProductCard/
+│   │       │   │   │   ├── ProductCard.tsx
+│   │       │   │   │   └── ProductCard.module.scss
+│   │       │   │   │
+│   │       │   │   └── ProductList.tsx
+│   │       │   │
+│   │       │   ├── ProductPage.tsx
+│   │       │   └── ProductPage.module.scss
+│   │       │
+│   │       ├── Profile/
+│   │       │   ├── Profile.tsx
+│   │       │   └── Profile.module.scss
+│   │       │
+│   │       ├── PumaPage/
+│   │       │   └── PumaPage.tsx
+│   │       │
+│   │       ├── SignIn/
+│   │       │   ├── SignIn.tsx
+│   │       │   └── SignIn.module.scss
+│   │       │
+│   │       ├── SignUp/
+│   │       │   ├── SignUp.tsx
+│   │       │   ├── SignUp.module.scss
+│   │       │   └── selectValue.tsx
+│   │       │
+│   │       ├── VansPage/
+│   │       │   └── VansPage.tsx
+│   │       │
+│   │       └── ClientPage.tsx
 │   │
-│   ├── App.css
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── theme.js
-│   └── utils/
-│       └── constants.js
+│   ├── routes/
+│   │   ├── ProtectedRoute.tsx
+│   │   └── PublicRoute.tsx
+│   │
+│   ├── utils/
+│   │   └── constants.ts
+│   │
+│   ├── App.scss
+│   ├── App.tsx
+│   ├── global.d.ts
+│   ├── main.tsx
+│   └── theme.ts
 │
 ├── .eslintrc.cjs
 ├── .gitignore
 ├── index.html
-├── jsconfig.json
 ├── package.json
 ├── README.md
+├── tsconfig.json
+├── tsconfig.node.json
 ├── vercel.json
-├── vite.config.js
+├── vite.config.ts
 └── yarn.lock
 ```
 # Project-structure-backend

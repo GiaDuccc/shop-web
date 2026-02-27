@@ -5,7 +5,7 @@ export interface Order {
   name: string;
   payment: string;
   phone: string;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'canceled';
+  status: 'pending' | 'delivering' | 'completed' | 'canceled';
   totalPrice: number;
   updateAt: string;
   _destroy: boolean;

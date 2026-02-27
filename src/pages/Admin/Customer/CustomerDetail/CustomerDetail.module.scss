@@ -1,0 +1,252 @@
+.modalOverlay {
+  overflow-y: scroll;
+}
+
+.modalBackdrop {
+  min-height: 100vh;
+  height: fit-content;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.2);
+  align-items: center;
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.modalBackdropHidden {
+  opacity: 0;
+}
+
+.modalBackdropVisible {
+  opacity: 1;
+}
+
+.modalContent {
+  width: 85%;
+  background-color: white;
+  outline: none;
+  border-radius: 28px;
+  margin: 32px 0;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 100px 64px;
+  box-shadow: 4px 4px 15px rgb(138, 138, 138);
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.modalContentLoading {
+  height: 100vh;
+}
+
+.modalContentFit {
+  height: fit-content;
+}
+
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.closeButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.closeButton {
+  background-color: #333336;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: -70px;
+
+  &:hover svg {
+    color: white;
+    transition: color 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.title {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.customerInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  gap: 16px;
+  padding-left: 8px;
+}
+
+.infoRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.infoLabel {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.infoValue {
+  font-size: 16px;
+}
+
+.activeIndicator {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgb(141, 141, 141);
+  border-radius: 16px;
+}
+
+.activeTrue {
+  background-color: #3dff4c;
+}
+
+.activeFalse {
+  background-color: #ff3232;
+}
+
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 4px auto;
+}
+
+.ordersSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ordersTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.orderCard {
+  display: flex;
+  height: fit-content;
+  gap: 16px;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 3px 3px 15px #ddd;
+  }
+}
+
+.orderImages {
+  display: flex;
+  gap: 8px;
+  width: 110px;
+  height: 110px;
+  flex-wrap: wrap;
+}
+
+.productImage {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productImageSingle {
+  width: 100%;
+  height: 100%;
+}
+
+.productImageMultiple {
+  width: 50px;
+  height: 50px;
+}
+
+.orderInfo {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.orderTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.orderText {
+  font-size: 16px;
+  color: #696969;
+}
+
+.orderStatus {
+  border-bottom: 1px solid black;
+  padding-bottom: 0.5px;
+}
+
+.orderAddress {
+  border-bottom: 1px solid black;
+  padding-bottom: 0.5px;
+  color: black;
+}
+
+.orderPricing {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.orderPrice {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.orderDate {
+  font-size: 14px;
+  font-weight: 600;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

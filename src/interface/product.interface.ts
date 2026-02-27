@@ -11,6 +11,9 @@ export interface Product {
   stock: number;
   type: string;
   _id: string;
+  quantitySold: number;
+  importAt: Date;
+  updateAt: Date;
 }
 
 export interface ProductColor {
